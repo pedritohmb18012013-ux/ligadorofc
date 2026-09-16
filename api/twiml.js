@@ -7,10 +7,6 @@ export default function handler(req, res) {
     .replace(/>/g, "&gt;")
     .replace(/"/g, "&quot;");
 
-  res.type("text/xml").send(`
-    <Response>
-      <Say language="pt-BR">${seguro}</Say>
-      <Hangup/>
-    </Response>
-  `);
+  res.setHeader("Content-Type", "text/xml");
+  res.status(200).send(`<Response><Say language="pt-BR">${seguro}</Say><Hangup/></Response>`);
 }   
