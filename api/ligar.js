@@ -12,10 +12,12 @@ export default async function handler(req, res) {
   try {
     const client = twilio(process.env.TWILIO_ACCOUNT_SID, process.env.TWILIO_AUTH_TOKEN);
 
+    const origin = req.headers.origin || "https://ligadorofc.vercel.app";
+
     await client.calls.create({
       to: numero,
       from: process.env.TWILIO_FROM_NUMBER,
-      url: `/api/twiml?texto=${encodeURIComponent(texto)}`,
+      url: `${origin}/api/twiml?texto=${encodeURIComponent(texto)}`,
     });
 
     res.json({ ok: true });
